@@ -23,7 +23,7 @@ resource "aws_eks_cluster" "aws_eks" {
 
   // Configure VPC for the EKS cluster
   vpc_config {
-    subnet_ids = var.subnet_ids // provide the subnet ids
+    subnet_ids = var.subnet_ids // provide minimum two subnet ids for eks cluster creation
   }
 
   // Add tags to the EKS cluster for identification
