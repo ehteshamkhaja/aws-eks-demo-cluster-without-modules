@@ -6,6 +6,12 @@ variable "eks_cluster_name" {
   default     = "eks-demo"
 }
 
+variable "eks_version" {
+  description = "The version of EKS"
+  type        = string
+  default     = "1.31"
+}
+
 variable "desired_size" {
   description = "The desired number of worker nodes"
   type        = number
