@@ -6,7 +6,7 @@ terraform.tfstate
 terraform.tfstate.backup
 *.tfstate
 *.tfstate.backup
-
+.terraform.lock.hcl
 
 ### VS Code ###
 .vscode/
