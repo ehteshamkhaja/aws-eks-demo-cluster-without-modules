@@ -16,7 +16,7 @@ provider "aws" {
 
 // Create an EKS cluster
 resource "aws_eks_cluster" "aws_eks" {
-  name     = "eks_cluster_demo"
+  name     = var.eks_cluster_name
   role_arn = aws_iam_role.eks_cluster.arn
 
   // Configure VPC for the EKS cluster

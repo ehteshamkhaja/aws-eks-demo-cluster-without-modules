@@ -1,5 +1,11 @@
 
 
+variable "eks_cluster_name" {
+  description = "The name of the EKS cluster"
+  type        = string
+  default     = "eks-demo"
+}
+
 variable "desired_size" {
   description = "The desired number of worker nodes"
   type        = number
