@@ -11,3 +11,6 @@ You can modify the vpc and subnet CIDRS in the terraform.tfvars file as per your
 In the kubernetes.tf file, i have provided user devops access to the kubernetes resources, as by default i am not having access to cluster.
 
 
+==
+There are two files role.yaml and rolebinding.yaml for providing user RBAC to the resources inside the cluster, you can customize it with your user names.
+==
