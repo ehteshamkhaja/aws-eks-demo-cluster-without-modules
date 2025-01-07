@@ -10,3 +10,6 @@ terraform.tfstate.backup
 
 ### VS Code ###
 .vscode/
+
+# Kube config
+.kube

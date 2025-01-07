@@ -1,58 +1,75 @@
 
-terraform {
-  required_providers { // Cloud API provider 
-    aws = {
-      source  = "hashicorp/aws"
-      version = "5.82.2"
-    }
+
+resource "aws_eks_cluster" "eks-cluster" {
+  name = var.cluster_name
+
+  access_config {
+    authentication_mode = "API"
   }
-}
 
-provider "aws" {
-  # Configuration options
-  region = "us-east-1"
-}
-
-
-// Create an EKS cluster
-resource "aws_eks_cluster" "aws_eks" {
-  name     = var.eks_cluster_name
-  role_arn = aws_iam_role.eks_cluster.arn
-
-  version  = var.eks_version // EKS version
-
-  // Configure VPC for the EKS cluster
+  role_arn = aws_iam_role.cluster.arn
+  version  = "1.31"
   vpc_config {
-    subnet_ids = var.subnet_ids // provide minimum two subnet ids for eks cluster creation
+
+    endpoint_private_access = false
+    endpoint_public_access  = true
+    public_access_cidrs     = ["0.0.0.0/0"]
+    subnet_ids = [
+      aws_subnet.public-subnet-1.id,
+      aws_subnet.public-subnet-2.id,
+    ]
+    security_group_ids = [
+      aws_security_group.kubernetes_master.id
+    ]
   }
 
-  // Add tags to the EKS cluster for identification
-  tags = {
-    Name = "EKS_demo"
+
+  kubernetes_network_config {
+    service_ipv4_cidr = "172.20.0.0/16"
   }
+
+  # Ensure that IAM Role permissions are created before and deleted
+  # after EKS Cluster handling. Otherwise, EKS will not be able to
+  # properly delete EKS managed EC2 infrastructure such as Security Groups.
+  depends_on = [
+    aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy,
+    aws_iam_role_policy_attachment.eks-AmazonEKSVPCResourceController
+  ]
+
+  tags = {
+    #  "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    Name = var.cluster_name
+
+  }
+
 }
 
+resource "aws_iam_role" "cluster" {
+  name = "eks-cluster-role"
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "sts:AssumeRole",
+          "sts:TagSession"
+        ]
+        Effect = "Allow"
+        Principal = {
+          Service = "eks.amazonaws.com"
+        }
+      },
+    ]
+  })
+}
 
+resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  role       = aws_iam_role.cluster.name
+}
 
-// Create an EKS node group
-resource "aws_eks_node_group" "node" {
-  cluster_name    = aws_eks_cluster.aws_eks.name
-  node_group_name = var.node_group_name
-  node_role_arn   = aws_iam_role.eks_nodes.arn
-  subnet_ids      = var.subnet_ids
-
-  // Configure scaling options for the node group
-  scaling_config {
-    desired_size = var.desired_size
-    max_size     = var.max_size
-    min_size     = var.min_size
-  }
-
-  // Ensure that the creation of the node group depends on the IAM role policies being attached
-  depends_on = [
-    aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
-    aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
-    aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
-  ]
+resource "aws_iam_role_policy_attachment" "eks-AmazonEKSVPCResourceController" {
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSVPCResourceController"
+  role       = aws_iam_role.cluster.name
 }
 
