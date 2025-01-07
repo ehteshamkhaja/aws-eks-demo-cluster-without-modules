@@ -8,19 +8,19 @@ data "aws_iam_user" "eksdeveloper" {
 }
 
 resource "aws_eks_access_entry" "example" {
-  cluster_name  = aws_eks_cluster.eks-cluster.name
-  principal_arn = data.aws_iam_user.devops.arn
-  kubernetes_groups = ["system:masters"]
-  type = "STANDARD"
+  cluster_name      = aws_eks_cluster.eks-cluster.name
+  principal_arn     = data.aws_iam_user.devops.arn
+  #kubernetes_groups = ["system:masters"]
+  type              = "STANDARD"
 }
 
 resource "aws_eks_access_entry" "eksdeveloper" {
-  cluster_name  = aws_eks_cluster.eks-cluster.name
-  principal_arn = data.aws_iam_user.eksdeveloper.arn
-  kubernetes_groups = ["developer-group"] 
-  type = "STANDARD"
+  cluster_name      = aws_eks_cluster.eks-cluster.name
+  principal_arn     = data.aws_iam_user.eksdeveloper.arn
+  kubernetes_groups = ["developer-group"]
+  type              = "STANDARD"
 }
-/*
+
 resource "aws_eks_access_policy_association" "eks-cluster-admin-policy-1" {
   cluster_name  = aws_eks_cluster.eks-cluster.name
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
@@ -46,7 +46,7 @@ resource "aws_eks_access_policy_association" "eks-cluster-admin-policy-2" {
   depends_on = [aws_eks_access_entry.example]
 }
 
-
+/*
 resource "aws_eks_access_policy_association" "eks-admin-policy-3" {
   cluster_name  = aws_eks_cluster.eks-cluster.name
   policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
