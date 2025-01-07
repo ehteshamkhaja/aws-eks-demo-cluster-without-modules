@@ -1,5 +1,5 @@
 resource "aws_vpc" "eks-vpc" {
-  cidr_block         = "10.0.0.0/16"
+  cidr_block         = var.vpc_cidr
   instance_tenancy   = "default"
   enable_dns_support = true
 
@@ -17,7 +17,7 @@ data "aws_availability_zones" "available" {
 
 resource "aws_subnet" "public-subnet-1" {
   vpc_id                  = aws_vpc.eks-vpc.id
-  cidr_block              = "10.0.1.0/24"
+  cidr_block              = var.public-subnet-1-cidr
   map_public_ip_on_launch = true
   availability_zone       = data.aws_availability_zones.available.names[0]
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "public-subnet-1" {
 
 resource "aws_subnet" "public-subnet-2" {
   vpc_id                  = aws_vpc.eks-vpc.id
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = var.public-subnet-2-cidr
   map_public_ip_on_launch = true
   availability_zone       = data.aws_availability_zones.available.names[1]
 
@@ -46,7 +46,7 @@ resource "aws_subnet" "public-subnet-2" {
 
 resource "aws_subnet" "private-subnet-1" {
   vpc_id     = aws_vpc.eks-vpc.id
-  cidr_block = "10.0.101.0/24"
+  cidr_block = var.private-subnet-1-cidr
 
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -59,7 +59,7 @@ resource "aws_subnet" "private-subnet-1" {
 
 resource "aws_subnet" "private-subnet-2" {
   vpc_id     = aws_vpc.eks-vpc.id
-  cidr_block = "10.0.102.0/24"
+  cidr_block = var.private-subnet-2-cidr
 
   availability_zone = data.aws_availability_zones.available.names[1]
 
