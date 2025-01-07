@@ -5,5 +5,9 @@
 This Repo is used for creation of the EKS Cluster on AWS Infrastructure. 
 
 
-Ensure that you change the subnets and replace it with the one's in your account, in the variables file.
+You can modify the vpc and subnet CIDRS in the terraform.tfvars file as per your requirements. other values such as cluster version, instances type in the nodegroup can be changed.
+
+
+In the kubernetes.tf file, i have provided user devops access to the kubernetes resources, as by default i am not having access to cluster.
+
 
