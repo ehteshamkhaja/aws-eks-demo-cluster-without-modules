@@ -17,7 +17,7 @@ resource "aws_eks_node_group" "ng-private" {
     ec2_ssh_key = aws_key_pair.tf-key-pair.key_name
   }
 
-  instance_types = ["t3.medium"]
+  instance_types = var.instance_types
   capacity_type  = "ON_DEMAND"
   ami_type       = "AL2_x86_64"
   disk_size      = 20
@@ -36,7 +36,9 @@ resource "aws_eks_node_group" "ng-private" {
     aws_iam_role_policy_attachment.example-AmazonEC2ContainerRegistryReadOnly,
   ]
   tags = {
-    Name = "Private-Node-Group"
+    Name                                            = "Private-Node-Group"
+    "k8s.io/cluster-autoscaler/${var.cluster_name}" = "owned"
+    "k8s.io/cluster-autoscaler/enabled"             = "TRUE"
   }
 }
 
@@ -67,5 +69,10 @@ resource "aws_iam_role_policy_attachment" "example-AmazonEKS_CNI_Policy" {
 
 resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  role       = aws_iam_role.ng-role.name
+}
+
+resource "aws_iam_role_policy_attachment" "CA-AutoScalingFullAccess" {
+  policy_arn = "arn:aws:iam::aws:policy/AutoScalingFullAccess"
   role       = aws_iam_role.ng-role.name
 }
