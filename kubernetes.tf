@@ -3,7 +3,7 @@ provider "kubernetes" {
   config_path = "~/.kube/config"
 }
 
-
+/*
 resource "kubernetes_cluster_role_v1" "eks-cluster-role" {
   metadata {
     name = "my-eks-cluster-role"
@@ -14,6 +14,7 @@ resource "kubernetes_cluster_role_v1" "eks-cluster-role" {
     resources  = ["namespaces"]
     verbs      = ["get", "list"]
   }
+  #  depends_on = [aws_eks_access_policy_association.eks-cluster-admin-policy-1, aws_eks_access_policy_association.eks-cluster-admin-policy-2]
 }
 
 resource "kubernetes_cluster_role_binding_v1" "some_role_binding" {
@@ -31,4 +32,6 @@ resource "kubernetes_cluster_role_binding_v1" "some_role_binding" {
     kind = "User"
     name = "devops" # or whatever the user name is
   }
+  #  depends_on = [aws_eks_access_policy_association.eks-cluster-admin-policy-1, aws_eks_access_policy_association.eks-cluster-admin-policy-2]
 }
+*/
