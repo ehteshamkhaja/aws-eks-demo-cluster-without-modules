@@ -42,11 +42,11 @@ resource "aws_iam_role" "cluster_autoscaler_iam_role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Federated = "oidc.eks.us-east-1.amazonaws.com/id/827F8EC237EA974558E67ECE9FEA36CE"
+          Federated = "${aws_iam_openid_connect_provider.cluster.url}"
         }
         Condition = {
           StringEquals = {
-            "oidc.eks.us-east-1.amazonaws.com/id/827F8EC237EA974558E67ECE9FEA36CE:sub" : "system:serviceaccount:kube-system:cluster-autoscaler"
+            "${aws_iam_openid_connect_provider.cluster.url}:sub" : "system:serviceaccount:kube-system:cluster-autoscaler"
           }
         }
       },
