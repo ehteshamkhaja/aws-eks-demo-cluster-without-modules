@@ -3,6 +3,8 @@ resource "aws_eks_node_group" "ng-private" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = "my-eks-nodegroup"
   node_role_arn   = aws_iam_role.ng-role.arn
+
+  version  = var.cluster_version
   subnet_ids = [
     aws_subnet.private-subnet-1.id,
     aws_subnet.private-subnet-2.id,
