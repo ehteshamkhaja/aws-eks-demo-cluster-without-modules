@@ -27,7 +27,7 @@ resource "aws_eks_node_group" "ng-private" {
 
 
   update_config {
-    max_unavailable = 1
+    max_unavailable = 1     # Update one node at a time
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
