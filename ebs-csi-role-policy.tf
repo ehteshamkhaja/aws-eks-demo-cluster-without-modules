@@ -39,7 +39,7 @@ resource "aws_iam_role" "ebs_csi_iam_role" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Federated = "${aws_iam_openid_connect_provider.cluster.url}"
+          Federated = "${aws_iam_openid_connect_provider.cluster.arn}"
         }
         Condition = {
           StringEquals = {

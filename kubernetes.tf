@@ -1,7 +1,5 @@
 
-provider "kubernetes" {
-  config_path = "~/.kube/config"
-}
+
 
 /*
 resource "kubernetes_cluster_role_v1" "eks-cluster-role" {

@@ -8,6 +8,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.35.1"
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.17.0"
+    }
   }
   backend "s3" {
     bucket         = "my-terraform-infra-bucket"
@@ -22,3 +26,4 @@ provider "aws" {
   # Configuration options
   region = var.region
 }
+

@@ -23,9 +23,9 @@ resource "aws_subnet" "public-subnet-1" {
 
 
   tags = {
-    Name = "eks-public-subnet-1"
-    #  "kubernetes.io/role/elb"                    = "1"
-    #  "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    Name                                        = "eks-public-subnet-1"
+    "kubernetes.io/role/elb"                    = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
 
@@ -36,9 +36,9 @@ resource "aws_subnet" "public-subnet-2" {
   availability_zone       = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "eks-public-subnet-2"
-    #  "kubernetes.io/role/elb"                    = "1"
-    #  "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    Name                                        = "eks-public-subnet-2"
+    "kubernetes.io/role/elb"                    = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
 
@@ -51,9 +51,9 @@ resource "aws_subnet" "private-subnet-1" {
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
-    Name = "eks-private-subnet-1"
-    #  "kubernetes.io/role/internal-elb"           = "1"
-    #  "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    Name                                        = "eks-private-subnet-1"
+    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
 
@@ -64,9 +64,9 @@ resource "aws_subnet" "private-subnet-2" {
   availability_zone = data.aws_availability_zones.available.names[1]
 
   tags = {
-    Name = "eks-private-subnet-2"
-    # "kubernetes.io/role/internal-elb"           = "1"
-    # "kubernetes.io/cluster/${var.cluster_name}" = "owned"
+    Name                                        = "eks-private-subnet-2"
+    "kubernetes.io/role/internal-elb"           = "1"
+    "kubernetes.io/cluster/${var.cluster_name}" = "owned"
   }
 }
 
