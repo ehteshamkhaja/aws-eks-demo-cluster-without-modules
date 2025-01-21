@@ -8,3 +8,4 @@ variable "private-subnet-2-cidr" {}
 variable "vpc_cidr" {}
 variable "cluster_version" {}
 #variable "oidc_thumbprint_list" {}
+variable "accountid" {}
