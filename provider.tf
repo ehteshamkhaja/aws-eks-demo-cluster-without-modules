@@ -14,10 +14,11 @@ terraform {
     }
   }
   backend "s3" {
-    bucket         = "my-terraform-infra-bucket"
-    key            = "terraform.tfstate"
-    region         = "us-east-1"
-    dynamodb_table = "my-terraform-infra-table"
+    bucket = "my-terraform-infra-bucket"
+    key    = "terraform.tfstate"
+    region = "us-east-1"
+    //  dynamodb_table = "my-terraform-infra-table"
+    use_lockfile = "true"
   }
 
 }

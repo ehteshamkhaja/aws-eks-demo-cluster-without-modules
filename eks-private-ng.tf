@@ -4,7 +4,7 @@ resource "aws_eks_node_group" "ng-private" {
   node_group_name = "my-eks-nodegroup"
   node_role_arn   = aws_iam_role.ng-role.arn
 
-  version  = var.cluster_version
+  version = var.cluster_version
   subnet_ids = [
     aws_subnet.private-subnet-1.id,
     aws_subnet.private-subnet-2.id,
@@ -27,7 +27,7 @@ resource "aws_eks_node_group" "ng-private" {
 
 
   update_config {
-    max_unavailable = 1     # Update one node at a time
+    max_unavailable = 1 # Update one node at a time
   }
 
   # Ensure that IAM Role permissions are created before and deleted after EKS Node Group handling.
