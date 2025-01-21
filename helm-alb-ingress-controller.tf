@@ -1,3 +1,4 @@
+
 provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
@@ -38,6 +39,7 @@ resource "helm_release" "alb_ingress" {
     aws_eks_node_group.ng-private,
     aws_eks_cluster.eks-cluster, # Ensure EKS cluster is created first
     aws_iam_role.alb_ingress_controller_iam_role,
-    aws_iam_role_policy_attachment.alb_controller_iam_role_policy_attach
+    aws_iam_role_policy_attachment.alb_controller_iam_role_policy_attach,
+    terraform_data.kubectl,
   ]
 }

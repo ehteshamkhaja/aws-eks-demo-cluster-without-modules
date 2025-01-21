@@ -88,3 +88,10 @@ output "node_group_private_version" {
   value       = aws_eks_node_group.ng-private.version
 }
 
+
+output "cluster_info" {
+  description = "The name/id of the EKS cluster."
+  value       = aws_eks_cluster.eks-cluster
+}
+
+

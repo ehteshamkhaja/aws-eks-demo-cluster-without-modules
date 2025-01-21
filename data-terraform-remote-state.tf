@@ -6,11 +6,8 @@ data "terraform_remote_state" "eks" {
     key    = "terraform.tfstate"
     region = var.region
   }
-  
 }
 
-output "terraform_remote_state_name" {
-
-  value = data.terraform_remote_state.eks.outputs
-}
 */
+
+

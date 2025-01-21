@@ -45,6 +45,17 @@ resource "aws_eks_node_group" "ng-private" {
   }
 }
 
+resource "terraform_data" "kubectl" {
+
+  provisioner "local-exec" {
+    command = "aws eks --region ${var.region} update-kubeconfig --name ${var.cluster_name}"
+  }
+  
+  depends_on = [aws_eks_cluster.eks-cluster,
+    aws_eks_node_group.ng-private,
+  ]
+}
+
 resource "aws_iam_role" "ng-role" {
   name = "eks-private-node-group-role"
 
