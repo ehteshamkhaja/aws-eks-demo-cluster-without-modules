@@ -1,3 +1,4 @@
+/*
 #helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
 #helm install csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver --namespace kube-system
 # syncSecret.enabled=true
@@ -40,3 +41,4 @@ output "secrets_store_csi_driver_provider_aws_version" {
 }
 
 
+*/

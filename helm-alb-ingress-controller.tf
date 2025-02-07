@@ -1,4 +1,4 @@
-
+/*
 provider "helm" {
   kubernetes {
     config_path = "~/.kube/config"
@@ -43,3 +43,4 @@ resource "helm_release" "alb_ingress" {
     terraform_data.kubectl,
   ]
 }
+*/

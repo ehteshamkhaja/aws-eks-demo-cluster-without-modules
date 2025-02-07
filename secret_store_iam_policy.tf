@@ -1,3 +1,4 @@
+/*
 # Namespace
 resource "kubernetes_namespace" "my-namespace" {
   metadata {
@@ -78,3 +79,5 @@ YAML
 
   depends_on = [kubernetes_namespace.my-namespace]
 }
+
+*/

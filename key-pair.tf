@@ -1,3 +1,4 @@
+/*
 resource "random_id" "server" {
   byte_length = 4
 }
@@ -20,7 +21,7 @@ resource "local_sensitive_file" "private_key" {
   filename        = format("%s/%s/%s", abspath(path.root), ".ssh", "ansible-ssh-key.pem")
   file_permission = "0600"
 }
-
+*/
 
 
 // local_sensitive_file.private_key.key_name = "ansible-ssh-key.pem"

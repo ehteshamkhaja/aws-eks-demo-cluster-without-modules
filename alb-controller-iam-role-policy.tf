@@ -1,5 +1,5 @@
 // Reference link for aws doc to install alb ingress controller - https://docs.aws.amazon.com/eks/latest/userguide/lbc-helm.html
-
+/*
 data "http" "alb_controller_policy" {
   url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.11.0/docs/install/iam_policy.json"
 
@@ -44,3 +44,4 @@ resource "aws_iam_role_policy_attachment" "alb_controller_iam_role_policy_attach
   policy_arn = aws_iam_policy.alb_controller_iam_policy.arn
   role       = aws_iam_role.alb_ingress_controller_iam_role.name
 }
+*/
