@@ -1,22 +1,25 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: mynginx    
-  template:
-    metadata:
-      labels:
-        app: mynginx
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
- 
+resource "azurerm_resource_group" "example" {
+  name     = "myresource"
+  location = "West Europe"
+}
+resource "azurerm_storage_account" "storage_account" {
+  name                     = "appgrp10000"
+  resource_group_name      = azurerm_resource_group.example.name
+  location                 = "West Europe"
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_container" "container" {
+  name                  = "content"
+  storage_account_name  = azurerm_storage_account.storage_account.name
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_blob" "blob" {
+  name                   = "sample.txt"
+  storage_account_name   = azurerm_storage_account.storage_account.name
+  storage_container_name =  "content"
+  type                   = "Block"
+  source                 = "sample.txt" 
+}
